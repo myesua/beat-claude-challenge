@@ -32,7 +32,7 @@ Numbers in this answer are labeled **[Assumed]**, **[Estimated]**, or **[Observe
 
 ## AI usage disclosure
 
-AI assistance helped inspect public challenge materials, implement/refine the fixture analyzer and tests, and draft architecture and calculations. I will personally inspect the pinned fixture, verify its checksum, rerun tests and the public validator, recalculate capacity/cost inputs, and own the final architecture choices. No private benchmark answer was available or used. The known weak points are unverified SDK retry behavior, unmeasured event-size/tenant distributions, no AWS load test, and incomplete real deletion/compliance validation.
+I used OpenAI Codex to inspect the public challenge materials, implement and refine the fixture analyzer and tests, and help draft the architecture and calculations. I personally inspected the pinned fixture, verified its checksum, reran the tests and public validator, recalculated the capacity/cost inputs, and made the final architecture choices. No private benchmark answer was available or used. The known weak points are unverified SDK retry behavior, unmeasured event-size/tenant distributions, no AWS load test, and incomplete real deletion/compliance validation.
 
 ## Failure handling and what stays human
 

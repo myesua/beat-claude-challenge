@@ -13,6 +13,8 @@ This repository is being built against the public `2026-07` brief and the fixtur
 - `output/` — reproducible decision file and measured fixture report.
 - `docs/` — architecture, findings, decisions, validation, and submission write-up.
 
+The brief does not prescribe Python or JavaScript. Python is used here for the small, dependency-free fixture-analysis artifact; the proposed production system preserves the existing JavaScript SDK contract and uses managed AWS services behind it. The artifact is a way to make the fixture reasoning reproducible, not a claim that the production pipeline should be written in Python.
+
 ## Reproduce
 
 From the repository root, using Python 3.10 or newer:
