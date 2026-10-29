@@ -1,0 +1,341 @@
+{
+  "source": "challenges/engineer-004/fixtures/event_sample.jsonl",
+  "fixture_sha256": "1aeb24b415009e89fcf8acb5a178410faf216dc17b16920d9849ecc8bbb24235",
+  "counts": {
+    "physical_lines": 25,
+    "json_records": 24,
+    "malformed_or_non_object_records": 1,
+    "unique_event_ids_observed": 23,
+    "decisions": {
+      "ACCEPT": 12,
+      "ACCEPT_EXCLUDED_FROM_PERSONALIZATION": 4,
+      "DEDUPLICATE": 1,
+      "NORMALIZE_AND_ACCEPT": 1,
+      "PRIORITY_PRIVACY_CONTROL": 1,
+      "QUARANTINE": 2,
+      "QUARANTINE_TIME_REVIEW": 3,
+      "SANITIZE_AND_ACCEPT": 1
+    },
+    "anomalies": {
+      "bot_like_referrer": 4,
+      "duplicate_event_retry": 1,
+      "event_time_ahead_of_receipt_clock_skew": 3,
+      "legacy_event_type_alias": 1,
+      "legacy_page_path_field": 1,
+      "legacy_referrer_field": 1,
+      "legacy_timestamp_field": 1,
+      "malformed_json": 1,
+      "missing_tenant_id": 1,
+      "received_at_missing_latency_unmeasurable": 1,
+      "sensitive_property_detected": 1
+    }
+  },
+  "latency_measurement": {
+    "definition": "received_at minus ts for events accepted into live processing; excludes invalid-clock events, late arrivals, retries, and missing receipt times",
+    "thresholds_seconds": {
+      "future_clock_skew_tolerance": 30,
+      "late_arrival_cutoff": 300
+    },
+    "eligible_event_lag_seconds": {
+      "n": 17,
+      "min_seconds": 0.119,
+      "median_seconds": 0.163,
+      "p95_seconds": 0.206,
+      "max_seconds": 0.206
+    },
+    "excluded_event_ids": [
+      "evt-0002",
+      "evt-0005",
+      "evt-0006",
+      "evt-0011",
+      "evt-0016",
+      "evt-0017"
+    ]
+  },
+  "runtime_measurement": {
+    "analysis_elapsed_seconds": 0.002129,
+    "parsed_json_records_per_second": 11273.3,
+    "scope": "single local fixture-analysis run only; not a production or AWS throughput benchmark"
+  },
+  "decisions": [
+    {
+      "source_line": 1,
+      "event_id": "evt-0001",
+      "tenant_id": "t-042",
+      "event_type": "page_view",
+      "decision": "ACCEPT",
+      "anomalies": [],
+      "reason": "Envelope passes fixture checks; downstream processing remains subject to idempotency and tenant-scoped access controls.",
+      "observed_fixture_lag_seconds": 0.206
+    },
+    {
+      "source_line": 2,
+      "event_id": "evt-0002",
+      "tenant_id": "t-042",
+      "event_type": "click",
+      "decision": "ACCEPT",
+      "anomalies": [],
+      "reason": "Envelope passes fixture checks; downstream processing remains subject to idempotency and tenant-scoped access controls.",
+      "observed_fixture_lag_seconds": 0.132
+    },
+    {
+      "source_line": 3,
+      "event_id": "evt-0003",
+      "tenant_id": "t-042",
+      "event_type": "identify",
+      "decision": "ACCEPT",
+      "anomalies": [],
+      "reason": "Envelope passes fixture checks; downstream processing remains subject to idempotency and tenant-scoped access controls.",
+      "observed_fixture_lag_seconds": 0.151
+    },
+    {
+      "source_line": 4,
+      "event_id": "evt-0004",
+      "tenant_id": "t-017",
+      "event_type": "page_view",
+      "decision": "ACCEPT",
+      "anomalies": [],
+      "reason": "Envelope passes fixture checks; downstream processing remains subject to idempotency and tenant-scoped access controls.",
+      "observed_fixture_lag_seconds": 0.179
+    },
+    {
+      "source_line": 5,
+      "event_id": "evt-0002",
+      "tenant_id": "t-042",
+      "event_type": "click",
+      "decision": "DEDUPLICATE",
+      "anomalies": [
+        "duplicate_event_retry"
+      ],
+      "reason": "Idempotent retry matches the prior semantic event; receipt timestamp does not create a second event.",
+      "duplicate_of_line": 2,
+      "observed_fixture_lag_seconds": 7.56
+    },
+    {
+      "source_line": 6,
+      "event_id": "evt-0005",
+      "tenant_id": "t-017",
+      "event_type": "form_submit",
+      "decision": "QUARANTINE_TIME_REVIEW",
+      "anomalies": [
+        "event_time_ahead_of_receipt_clock_skew"
+      ],
+      "reason": "Event time is more than the configured 30-second tolerance ahead of receipt time; exclude from live metrics until repaired or approved for backfill.",
+      "observed_fixture_lag_seconds": -47.19
+    },
+    {
+      "source_line": 7,
+      "event_id": "evt-0006",
+      "tenant_id": "t-088",
+      "event_type": "page_view",
+      "decision": "QUARANTINE_TIME_REVIEW",
+      "anomalies": [
+        "event_time_ahead_of_receipt_clock_skew"
+      ],
+      "reason": "Event time is more than the configured 30-second tolerance ahead of receipt time; exclude from live metrics until repaired or approved for backfill.",
+      "observed_fixture_lag_seconds": -3900.0
+    },
+    {
+      "source_line": 8,
+      "event_id": "evt-0007",
+      "tenant_id": "t-042",
+      "event_type": "custom",
+      "decision": "SANITIZE_AND_ACCEPT",
+      "anomalies": [
+        "sensitive_property_detected"
+      ],
+      "reason": "Remove sensitive property values before durable analytics storage; retain property-path evidence only.",
+      "sensitive_property_paths": [
+        "contact_email",
+        "phone"
+      ],
+      "observed_fixture_lag_seconds": 0.179
+    },
+    {
+      "source_line": 9,
+      "event_id": "evt-0008",
+      "tenant_id": "t-017",
+      "event_type": "identify",
+      "decision": "ACCEPT",
+      "anomalies": [],
+      "reason": "Envelope passes fixture checks; downstream processing remains subject to idempotency and tenant-scoped access controls.",
+      "observed_fixture_lag_seconds": 0.166
+    },
+    {
+      "source_line": 10,
+      "event_id": "evt-0009",
+      "tenant_id": "t-042",
+      "event_type": "page_view",
+      "decision": "NORMALIZE_AND_ACCEPT",
+      "anomalies": [
+        "legacy_event_type_alias",
+        "legacy_page_path_field",
+        "legacy_referrer_field",
+        "legacy_timestamp_field",
+        "received_at_missing_latency_unmeasurable"
+      ],
+      "reason": "Map recognized legacy fields to the canonical envelope and record the schema version/normalization path."
+    },
+    {
+      "source_line": 11,
+      "event_id": "evt-0010",
+      "tenant_id": "t-088",
+      "event_type": "click",
+      "decision": "ACCEPT",
+      "anomalies": [],
+      "reason": "Envelope passes fixture checks; downstream processing remains subject to idempotency and tenant-scoped access controls.",
+      "observed_fixture_lag_seconds": 0.189
+    },
+    {
+      "source_line": 12,
+      "event_id": "evt-0011",
+      "tenant_id": null,
+      "event_type": "page_view",
+      "decision": "QUARANTINE",
+      "anomalies": [
+        "missing_tenant_id"
+      ],
+      "reason": "Required envelope fields are missing or invalid; do not publish to customer-facing consumers.",
+      "observed_fixture_lag_seconds": 0.162
+    },
+    {
+      "source_line": 13,
+      "event_id": "evt-0012",
+      "tenant_id": "t-042",
+      "event_type": "page_view",
+      "decision": "ACCEPT_EXCLUDED_FROM_PERSONALIZATION",
+      "anomalies": [
+        "bot_like_referrer"
+      ],
+      "reason": "Preserve for audit/bot analysis but exclude from human-behavior metrics and personalization pending bot policy.",
+      "observed_fixture_lag_seconds": 0.119
+    },
+    {
+      "source_line": 14,
+      "event_id": "evt-0013",
+      "tenant_id": "t-042",
+      "event_type": "page_view",
+      "decision": "ACCEPT_EXCLUDED_FROM_PERSONALIZATION",
+      "anomalies": [
+        "bot_like_referrer"
+      ],
+      "reason": "Preserve for audit/bot analysis but exclude from human-behavior metrics and personalization pending bot policy.",
+      "observed_fixture_lag_seconds": 0.123
+    },
+    {
+      "source_line": 15,
+      "event_id": "evt-0014",
+      "tenant_id": "t-042",
+      "event_type": "page_view",
+      "decision": "ACCEPT_EXCLUDED_FROM_PERSONALIZATION",
+      "anomalies": [
+        "bot_like_referrer"
+      ],
+      "reason": "Preserve for audit/bot analysis but exclude from human-behavior metrics and personalization pending bot policy.",
+      "observed_fixture_lag_seconds": 0.129
+    },
+    {
+      "source_line": 16,
+      "event_id": "evt-0015",
+      "tenant_id": "t-042",
+      "event_type": "page_view",
+      "decision": "ACCEPT_EXCLUDED_FROM_PERSONALIZATION",
+      "anomalies": [
+        "bot_like_referrer"
+      ],
+      "reason": "Preserve for audit/bot analysis but exclude from human-behavior metrics and personalization pending bot policy.",
+      "observed_fixture_lag_seconds": 0.133
+    },
+    {
+      "source_line": 17,
+      "event_id": "evt-0016",
+      "tenant_id": "t-017",
+      "event_type": "custom",
+      "decision": "QUARANTINE_TIME_REVIEW",
+      "anomalies": [
+        "event_time_ahead_of_receipt_clock_skew"
+      ],
+      "reason": "Event time is more than the configured 30-second tolerance ahead of receipt time; exclude from live metrics until repaired or approved for backfill.",
+      "observed_fixture_lag_seconds": -31535999.788
+    },
+    {
+      "source_line": 18,
+      "event_id": "evt-0017",
+      "tenant_id": "t-088",
+      "event_type": "privacy_request",
+      "decision": "PRIORITY_PRIVACY_CONTROL",
+      "anomalies": [],
+      "reason": "Route to the privacy deletion workflow and suppress downstream use pending verified completion.",
+      "observed_fixture_lag_seconds": 0.191
+    },
+    {
+      "source_line": 19,
+      "event_id": "evt-0018",
+      "tenant_id": "t-017",
+      "event_type": "page_view",
+      "decision": "ACCEPT",
+      "anomalies": [],
+      "reason": "Envelope passes fixture checks; downstream processing remains subject to idempotency and tenant-scoped access controls.",
+      "observed_fixture_lag_seconds": 0.157
+    },
+    {
+      "source_line": 20,
+      "event_id": "evt-0019",
+      "tenant_id": "t-042",
+      "event_type": "custom",
+      "decision": "ACCEPT",
+      "anomalies": [],
+      "reason": "Envelope passes fixture checks; downstream processing remains subject to idempotency and tenant-scoped access controls.",
+      "observed_fixture_lag_seconds": 0.193
+    },
+    {
+      "source_line": 21,
+      "event_id": "evt-0020",
+      "decision": "QUARANTINE",
+      "anomalies": [
+        "malformed_json"
+      ],
+      "reason": "JSON parsing failed; retain only the restricted raw record for diagnosis, then replay after repair."
+    },
+    {
+      "source_line": 22,
+      "event_id": "evt-0021",
+      "tenant_id": "t-017",
+      "event_type": "page_view",
+      "decision": "ACCEPT",
+      "anomalies": [],
+      "reason": "Envelope passes fixture checks; downstream processing remains subject to idempotency and tenant-scoped access controls.",
+      "observed_fixture_lag_seconds": 0.162
+    },
+    {
+      "source_line": 23,
+      "event_id": "evt-0022",
+      "tenant_id": "t-042",
+      "event_type": "identify",
+      "decision": "ACCEPT",
+      "anomalies": [],
+      "reason": "Envelope passes fixture checks; downstream processing remains subject to idempotency and tenant-scoped access controls.",
+      "observed_fixture_lag_seconds": 0.182
+    },
+    {
+      "source_line": 24,
+      "event_id": "evt-0023",
+      "tenant_id": "t-088",
+      "event_type": "form_submit",
+      "decision": "ACCEPT",
+      "anomalies": [],
+      "reason": "Envelope passes fixture checks; downstream processing remains subject to idempotency and tenant-scoped access controls.",
+      "observed_fixture_lag_seconds": 0.163
+    },
+    {
+      "source_line": 25,
+      "event_id": "evt-0024",
+      "tenant_id": "t-017",
+      "event_type": "page_view",
+      "decision": "ACCEPT",
+      "anomalies": [],
+      "reason": "Envelope passes fixture checks; downstream processing remains subject to idempotency and tenant-scoped access controls.",
+      "observed_fixture_lag_seconds": 0.165
+    }
+  ]
+}

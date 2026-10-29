@@ -15,7 +15,7 @@ This repository is being built against the public `2026-07` brief and the fixtur
 
 ## Reproduce
 
-From the repository root, using Python 3.11 or newer:
+From the repository root, using Python 3.10 or newer:
 
 ```bash
 python3 -m unittest discover -s tests -v
