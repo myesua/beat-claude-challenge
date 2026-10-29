@@ -1,6 +1,6 @@
 # Beat Claude — Engineer 004
 
-Candidate work product for Single Grain's `Engineer 004: System Design — Real-Time Analytics Pipeline` challenge.
+My work product for Single Grain's `Engineer 004: System Design — Real-Time Analytics Pipeline` challenge.
 
 This repository is being built against the public `2026-07` brief and the fixture present in the upstream repository commit recorded in [`docs/source-provenance.md`](docs/source-provenance.md). The fixture is copied verbatim so the analysis can be rerun. It is synthetic challenge data, not customer data.
 
@@ -29,6 +29,6 @@ The analyzer writes no raw property values to its decision output. It records ev
 
 ## Scope and honesty
 
-The runnable artifact analyzes the challenge fixture; it is not a deployed streaming service and does not prove production throughput, zero-loss guarantees, customer adoption, or AWS service-level performance. Architecture capacity numbers are explicitly labeled by source type. Production performance and cost require load tests and an AWS account/environment supplied by the hiring team.
+The runnable artifact analyzes the challenge fixture; it is not a deployed streaming service and does not measure production throughput, end-to-end loss, customer outcomes, or AWS service-level performance. I label architecture capacity numbers by source type. Production performance and cost still need load tests and a provisioned AWS environment.
 
-AI assistance is disclosed in the submission. The candidate must review the final decisions and be prepared to explain them live before sharing this repository.
+The submission includes an AI-use disclosure. Before sharing or discussing the design, I make sure I understand and can explain the choices, evidence, assumptions, and known gaps.

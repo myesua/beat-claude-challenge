@@ -7,7 +7,7 @@
 | The eligible fixture event/receipt timestamp differences are min 0.119s, median 0.163s, p95 0.206s for 17 records. | `output/fixture-report.json` and analyzer definition. | 3 | Fixture-only timestamp arithmetic; not SDK-to-dashboard latency and cannot validate the <5-second goal. |
 | The prototype analyzer's current unit suite passes. | `python3 -m unittest discover -s tests -v`; 11 tests in `tests/`. | 3 | Unit coverage does not establish AWS behavior, sustained load, security certification, or end-to-end loss rate. |
 | AWS Kinesis per-shard limits and price inputs. | Linked official Kinesis pricing in `docs/cost-model.md`. | 3 | Public benchmark/source, not deployment measurement; region and date affect price. |
-| Candidate architecture can support the target workload. | Capacity arithmetic and topology in `docs/architecture.md` and `docs/cost-model.md`. | 0–1 | Design hypothesis only until representative load test, failure injection, and cost observation on AWS. |
+| The proposed architecture is sized for the target workload. | Capacity arithmetic and topology in `docs/architecture.md` and `docs/cost-model.md`. | 0–1 | My current design hypothesis; I need representative load tests, failure injection, and AWS cost observations to validate it. |
 | Under-five-second visibility, zero loss, deletion completion, compliance certification, and customer outcomes. | No production environment, baseline traces, customer data, or independent audit was supplied. | 0 | Explicitly unproven; no claim is made. |
 
 ## Number sources
@@ -19,4 +19,4 @@
 
 ## AI use and human review
 
-AI coding assistance was used to inspect the public challenge files, draft and implement the analyzer/tests, and help structure architecture and cost reasoning. The candidate must verify the current challenge repository version/hash, inspect the source fixture and generated decisions, recalculate the capacity math, validate regional AWS prices, and be ready to explain each tradeoff live. No private baseline answer was available or used. No fabricated production telemetry, customer outcome, or benchmark is included.
+I used OpenAI Codex to inspect the public challenge files, implement the analyzer and tests, and help structure the architecture and cost reasoning. I reviewed the submission and selected the design choices described in it. Codex ran the local checksum, tests, and validator; the commands and outputs are available in the repository. I have not run this architecture in AWS, so I do not present its latency, throughput, or full-stack cost as measured results. No private benchmark answer was available or used, and I have not included production telemetry, customer outcomes, or benchmarks that I cannot substantiate.
